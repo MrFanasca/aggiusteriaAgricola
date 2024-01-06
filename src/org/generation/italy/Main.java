@@ -2,8 +2,11 @@ package org.generation.italy;
 
 import java.util.Scanner;
 
+import org.generation.italy.model.Decespugliatori;
 import org.generation.italy.model.Macchina;
+import org.generation.italy.model.Motozappa;
 import org.generation.italy.model.Officina;
+import org.generation.italy.model.Tosaerba;
 
 public class Main {
 
@@ -20,19 +23,57 @@ public class Main {
 		 * 	officina. Ad ogni macchina riparata, deve essere associata una lista delle lavorazioni effettuate e del loro costo, 
 		 * 	la cui somma costituisce il totale del costo della riparazione	*/
 		
-		String risposta;
+		String marca, tipologia, risposta;
+		int nRuote;
+		boolean accElettrica;
 		
 		Officina o = new Officina();
-		Macchina m;
+		Motozappa m;
 		Scanner sc = new Scanner(System.in);
 		
 		do {
-			System.out.println("Aggiungi la marca di una macchina");
-			risposta=sc.nextLine();
-		
+			System.out.println("Aggiungi la marca della macchina");
+			marca=sc.nextLine();
 			
-			if(o.aggiungiLavoro(new Macchina(risposta)))
-				System.out.println("elemento aggiunto");
+			System.out.println("\nDi che tipologia fa parte la macchina da inserire? (D: decespugliatore/ M: motozappa/ T: tosaerba)");
+			tipologia=sc.nextLine();
+
+			switch (tipologia)	{
+			
+			case "M":
+				System.out.println("\nInserire il numero di ruote");
+				nRuote=Integer.parseInt(sc.nextLine());
+				o.aggiungiLavoro(new Motozappa(marca, nRuote));
+			break;
+			
+			case "T":
+				System.out.println("\nInserire il numero di ruote");
+				nRuote=Integer.parseInt(sc.nextLine());
+				o.aggiungiLavoro(new Tosaerba(marca, nRuote));
+			break;
+			
+			case "D":
+				System.out.println("\nL'accenzione del mezzo è elettrica? (s/n)");
+				risposta=sc.nextLine();
+				
+				if (risposta.equalsIgnoreCase("s"))	{
+					
+					accElettrica=true;
+					o.aggiungiLavoro(new Decespugliatori(marca, accElettrica));
+				}
+				else if (risposta.equalsIgnoreCase("n"))	{
+					
+					accElettrica=false;
+					o.aggiungiLavoro(new Decespugliatori(marca, accElettrica));
+				}
+				else 
+					System.out.println("Risposta non valida");
+			break;
+			
+			default:
+				System.out.println("Opzione non valida");
+			break;
+			}
 		
 			System.out.println("Vuoi aggiungere altro? (s/n)");
 			risposta=sc.nextLine();

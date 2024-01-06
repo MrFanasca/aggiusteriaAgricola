@@ -1,6 +1,6 @@
 package org.generation.italy.model;
 
-public class Macchina {
+public abstract class Macchina {
 
 	// ATTRIBUTI
 	private static int nextNumeroOrdine=0;
@@ -16,10 +16,5 @@ public class Macchina {
 		this.numeroOrdine=nextNumeroOrdine;
 	}
 	
-	public String dettagli ()	{
-		return "Macchina:\n"+
-				"\tNumero ordine: "+ numeroOrdine +"\n"+
-				"\tMarca: "+ marca;
-				// "\tCosto totale: "+ costoTotale;
-	}
+	public abstract String dettagli ();
 }
